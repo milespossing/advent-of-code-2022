@@ -16,7 +16,7 @@ impl FromStr for Elf {
     }
 }
 
-pub fn solve(p: &std::path::Path) -> Result<(i32, i32), &str> {
+pub fn solve(p: &std::path::Path) -> Result<String, &str> {
     let file = std::fs::read_to_string(p.join("day04.txt")).unwrap();
     let (r1, r2) = file.split('\n').filter(|&s| !s.is_empty()).map(|s| {
         let splt: Vec<&str> = s.split(',').collect();
@@ -37,5 +37,5 @@ pub fn solve(p: &std::path::Path) -> Result<(i32, i32), &str> {
         };
         (r1 + is_contained, r2 + overlap)
     });
-    Ok((r1, r2))
+    Ok(format!("Part 1: {}, Part 2: {}", r1, r2))
 }
