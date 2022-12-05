@@ -9,5 +9,10 @@ fn calorie_sum(elf: &str) -> u64 {
 
 pub fn solve_01() -> Result<String, String> {
     let text: String = std::fs::read_to_string(std::path::Path::new(FILE_PATH)).unwrap();
-    Ok(format!("{}", text.as_str().split("\n\n").map(|e| calorie_sum(e)).max().unwrap()))
+    let mut calories: Vec<u64> = text.as_str().split("\n\n").map(|e| calorie_sum(e)).collect();
+    calories.sort_by(|a, b| b.cmp(a));
+    let top1 = calories[0];
+    let top3: u64 = calories.iter().take(3).sum();
+
+    Ok(format!("Part 1: {}, Part 2: {}", top1, top3))
 }
